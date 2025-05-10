@@ -1,9 +1,8 @@
 import { Link } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Calendar } from "react-native-calendars";
 
-import { getMoment } from "@/objects/moment/api/getMoment";
 import { Moment } from "@/objects/moment/model";
 import { CalendarItem } from "@/widgets/calendar/ui/CalendarItem";
 
@@ -14,31 +13,20 @@ type CalendarItemType = {
 };
 
 interface CustomCalendarProps {
-  currentDate: string;
+  data: Record<string, Moment>;
 }
 
-export const CustomCalendar = ({ currentDate }: CustomCalendarProps) => {
-  const [selectedDate, setSelectedDate] = useState("");
-
-  useEffect(() => {
-    setSelectedDate(currentDate);
-  }, [currentDate]);
-
+export const CustomCalendar = ({ data }: CustomCalendarProps) => {
   return (
     <View style={{ width: "100%", height: "auto" }}>
       <Calendar
-        current={selectedDate}
         dayComponent={({ date, marking, state }) => {
-          const [item, setMoment] = useState<Moment | null>(null);
-
-          useEffect(() => {
-            const momentData = getMoment(date?.dateString as string);
-            momentData.then(setMoment as () => void);
-          }, [date]);
+          if (!date) return null;
+          const item = data[date.dateString];
 
           if (item && item.photoUri && item.mood) {
             return (
-              <Link href={`/detail?date=${date?.dateString}`}>
+              <Link href={`/detail?date=${date.dateString}`}>
                 <CalendarItem photoUri={item.photoUri} mood={item.mood} />
               </Link>
             );

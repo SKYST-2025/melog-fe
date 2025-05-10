@@ -11,7 +11,7 @@ export type Mood = "verygood" | "good" | "normal" | "bad" | "verybad";
 export const MOODCOLOR: Record<Mood, string> = {
   verybad: "#FC5959",
   bad: "#3985FF",
-  normal: "#6F4CFB",
+  normal: "#A974FF",
   good: "#58BB63",
   verygood: "#F9DC00",
 } as const;

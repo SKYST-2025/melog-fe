@@ -1,5 +1,6 @@
+import { ImageBackground } from "expo-image";
 import React from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { Mood, MOODCOLOR } from "@/objects/moment/model";
 

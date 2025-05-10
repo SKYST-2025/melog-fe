@@ -1,18 +1,20 @@
-import { Link } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import { Button, Image, Platform, StyleSheet, Text, View } from 'react-native';
+import { Image } from "expo-image";
+import { Link } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Button, Platform, StyleSheet, Text, View } from "react-native";
 
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 
 export default function HomeScreen() {
   const [image, setImage] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('사진 접근 권한이 필요합니다.');
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("사진 접근 권한이 필요합니다.");
         }
       }
     })();
@@ -32,8 +34,8 @@ export default function HomeScreen() {
 
   const takePhotoWithCamera = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status !== 'granted') {
-      alert('카메라 권한이 필요합니다.');
+    if (status !== "granted") {
+      alert("카메라 권한이 필요합니다.");
       return;
     }
 
@@ -47,7 +49,6 @@ export default function HomeScreen() {
     }
   };
 
-
   return (
     <View style={styles.container}>
       <Button title="갤러리에서 선택" onPress={pickImageFromGallery} />
@@ -56,14 +57,15 @@ export default function HomeScreen() {
 
       {image && (
         <>
-            <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200, marginTop: 20, borderRadius: 10 }} />
-            <Link href="/create/selectmood">
-                <Text> 다음 </Text>
-            </Link></>
+          <Image
+            source={{ uri: image }}
+            style={{ width: 200, height: 200, marginTop: 20, borderRadius: 10 }}
+          />
+          <Link href="/create/selectmood">
+            <Text> 다음 </Text>
+          </Link>
+        </>
       )}
-      
     </View>
   );
 }
@@ -71,8 +73,8 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 20,
   },
   link: {
@@ -80,4 +82,3 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
 });
-
