@@ -1,9 +1,9 @@
 import { getMoment } from "@/objects/moment/api/getMoment";
 import { Moment } from "@/objects/moment/model/moment";
-import { ImageBackground } from "expo-image";
+import { MomentCard } from "@/objects/moment/ui";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export default function HomeScreen() {
   const params = useLocalSearchParams();
@@ -18,21 +18,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      {moment && (
-        <ImageBackground
-          source={{ uri: moment.photoUri }}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <Text>{moment.date}</Text>
-          <Text>{moment.description}</Text>
-          <Text>{moment.mood}</Text>
-          <Text>{moment.photoUri}</Text>
-          {/* <Image
-            source={{ uri: moment.photoUri }}
-            style={{ width: 200, height: 200 }}
-          ></Image> */}
-        </ImageBackground>
-      )}
+      {moment && <MomentCard data={moment} />}
     </View>
   );
 }
