@@ -65,7 +65,7 @@ Melog는 **“기록을 잘 쓰는 것”** 보다 **“감정을 잘 느끼는 
 
 **[5가지 감정사진 입력 예시]**
 
-<img width="535" alt="image" src="https://github.com/user-attachments/assets/2812ac09-a025-47c6-8525-e637e6f6fab2" />
+![image](https://github.com/user-attachments/assets/dea52eb9-c057-48dc-9d91-a10021026518)
 
 
 **[감정 리포트 관리]**
