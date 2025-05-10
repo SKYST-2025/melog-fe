@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
 
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import { CustomCalendar } from "@/widgets/calendar/ui";
+//import { CustomCalendar } from "@/widgets/calendar/ui";
 import { format } from "date-fns";
 import { router } from "expo-router";
 
@@ -167,8 +167,7 @@ export default function HomeScreen() {
           <Text>오늘 기록하기</Text>
         </Pressable>
       </View>
-
-      <CustomCalendar currentDate={currentDate} />
+      {/*<CustomCalendar currentDate={currentDate} />*/}
     </View>
   );
 }
