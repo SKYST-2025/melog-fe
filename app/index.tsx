@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
-import { CustomCalendar } from "@/widgets";
+import { CustomCalendar } from "@/widgets/calendar/ui";
 import { format } from "date-fns";
 import { Link } from "expo-router";
 
@@ -27,7 +27,10 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text>캘린더 자리</Text>
+      <Text style={{ width: "100%", fontSize: 30, paddingBottom: 40 }}>
+        Moments
+      </Text>
+
       <CustomCalendar currentDate={currentDate} momentsData={mockingData} />
 
       <Link href="/detail">
@@ -45,8 +48,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
     padding: 20,
+    paddingTop: 100,
   },
   link: {
     marginTop: 15,
