@@ -4,6 +4,8 @@
 
 ![image](https://github.com/user-attachments/assets/b1fc967b-9c3b-4a9b-97d4-abce0dafbd29)
 
+![image](https://github.com/user-attachments/assets/a0de7c46-6018-4fd8-b633-91a9bceae554)
+
 ## 주요 기능 (Features)
 📸 하루 한 장의 감정 사진 업로드
 
@@ -26,7 +28,7 @@
 ## 모든 절차의 간소화, 입력은 간단하게 사진과 감정기반 음악 추천 AI기능
 ![fin](https://github.com/user-attachments/assets/adc90909-6224-4168-93e6-d3f8f8ac6657)
 
-
+## 
 ## Get started
 
 1. Install dependencies
