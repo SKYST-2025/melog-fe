@@ -93,14 +93,3 @@ Melog는 **“기록을 잘 쓰는 것”** 보다 **“감정을 잘 느끼는 
 ## 실행 사진
 
 ![image](https://github.com/user-attachments/assets/a95bd517-c6bc-467b-b5a1-808194c440db)
-
-![Screenshot_20250511_062419_melog](https://github.com/user-attachments/assets/bac7df33-410e-4e7d-a993-35827b6d99b3)
-![Screenshot_20250511_062534_melog](https://github.com/user-attachments/assets/4721b932-2413-42bb-b849-92926e3f5e1d)
-![Screenshot_20250511_062530_melog](https://github.com/user-attachments/assets/8589404b-737c-485b-8219-f09f58c5a96c)
-![Screenshot_20250511_062527_melog](https://github.com/user-attachments/assets/703388cd-32a2-4f3c-8dcc-28f5ce66a12e)
-![Screenshot_20250511_062510_melog](https://github.com/user-attachments/assets/f234a45b-d423-4bac-8261-05ef89cbfa8d)
-![Screenshot_20250511_062457_melog](https://github.com/user-attachments/assets/1f7c7ece-71c9-43b7-9442-86a3b78f1b26)
-![Screenshot_20250511_062502_melog](https://github.com/user-attachments/assets/b5240a15-8afe-425a-a15a-2f5167c14323)
-![Screenshot_20250511_062453_melog](https://github.com/user-attachments/assets/ba751284-6f40-4952-b6e9-8acdcb40366a)
-![Screenshot_20250511_062442_melog](https://github.com/user-attachments/assets/1ff72b76-57f9-4d24-9def-612135111d91)
-![Screenshot_20250511_062435_melog](https://github.com/user-attachments/assets/948cdbf8-aa80-47cb-aeee-e304ee3d2152)
