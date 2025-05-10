@@ -1,15 +1,109 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { weeklyPlaylists, Song } from './data/playlistData';
+import { mockingData } from './data/mockingData';
+import { Moment } from "@/objects/moment/model";
 
+interface Song {
+  title: string;
+  artist: string;
+  comment: string;
+  emoji: string;
+  imageUri: string;
+  date?: string;
+}
+
+// Moment[] → Record<"Month - Week", Song[]>로 변환
+/*
+const groupByWeek = (data: Moment[]) => {
+  const result: Record<string, Song[]> = {};
+  const weeks = ["April - Week 1", "April - Week 2", "April - Week 3", "April - Week 4", "April - Week 5", "May - Week 1", "May - Week 2", "May - Week 3", "May - Week 4"];
+  weeks.forEach(week => {
+    result[week] = []; // 일단 빈 배열로 초기화
+  });
+
+  data.forEach(moment => {
+    const dateObj = new Date(moment.date);
+    //const month = dateObj.toLocaleString('default', { month: 'long' });
+    const month = dateObj.toLocaleString("en-US", { month: "long" });
+    // const week = `Week ${Math.ceil(dateObj.getDate() / 7)}`;
+    const weekNumber = Math.ceil(dateObj.getDate() / 7);
+    const key = `${month} - Week ${weekNumber}`;
+
+    const song: Song = {
+      title: moment.description,
+      artist: moment.mood,
+      comment: moment.description,
+      emoji:
+        moment.mood === 'verygood' ? '😄' :
+        moment.mood === 'good' ? '😊' :
+        moment.mood === 'normal' ? '😐' :
+        moment.mood === 'bad' ? '😟' :
+        '😞',
+      imageUri: moment.photoUri,
+      date: moment.date,
+    };
+
+    if (!result[key]) result[key] = [];
+    result[key].push(song);
+  });
+
+  return result;
+};
+*/
+const groupByWeek = (data: Moment[]) => {
+    const result: Record<string, Song[]> = {};
+  
+    // 먼저 필요한 주차들을 선정해 미리 초기화 (원하는 범위 확장 가능)
+    const weeks = [
+      "April - Week 1", "April - Week 2", "April - Week 3", "April - Week 4", "April - Week 5",
+      "May - Week 1", "May - Week 2", "May - Week 3", "May - Week 4", "May - Week 5"
+    ];
+    weeks.forEach(week => result[week] = []);
+  
+    // 유틸 함수: 해당 날짜가 그 달의 몇 번째 "일요일 시작 주"인지 계산
+    const getWeekOfMonth = (date: Date) => {
+      const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const dayOfWeek = startOfMonth.getDay(); // 0 (일) ~ 6 (토)
+      const offsetDate = date.getDate() + dayOfWeek;
+      return Math.ceil(offsetDate / 7);
+    };
+  
+    data.forEach(moment => {
+      const dateObj = new Date(moment.date);
+      const month = dateObj.toLocaleString("en-US", { month: "long" });
+      const weekNumber = getWeekOfMonth(dateObj); // 정확한 week 계산
+      const key = `${month} - Week ${weekNumber}`;
+  
+      const song: Song = {
+        title: moment.description,
+        artist: moment.mood,
+        comment: moment.description,
+        emoji:
+          moment.mood === 'verygood' ? '😄' :
+          moment.mood === 'good' ? '😊' :
+          moment.mood === 'normal' ? '😐' :
+          moment.mood === 'bad' ? '😟' :
+          '😞',
+        imageUri: moment.photoUri,
+        date: moment.date,
+      };
+  
+      if (!result[key]) result[key] = [];
+      result[key].push(song);
+    });
+  
+    return result;
+  };
+  
+
+const weeklyPlaylists = groupByWeek(mockingData);
 const weeks = Object.keys(weeklyPlaylists);
 
 const Playlist = () => {
   const [weekIndex, setWeekIndex] = useState(0);
-
   const currentWeek = weeks[weekIndex];
-  const playlist: Song[] = weeklyPlaylists[currentWeek];
+  const playlist = weeklyPlaylists[currentWeek];
 
   const changeWeek = (direction: 'prev' | 'next') => {
     if (direction === 'prev' && weekIndex > 0) {
