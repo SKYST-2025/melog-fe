@@ -26,7 +26,7 @@
 🎵 음악이 그냥의 기분을 대신 기억해줍니다.
 
 ## 모든 절차의 간소화, 입력은 간단하게 사진과 감정기반 음악 추천 AI기능
-![fin](https://github.com/user-attachments/assets/adc90909-6224-4168-93e6-d3f8f8ac6657)
+![MacBook Pro 16_ - 4](https://github.com/user-attachments/assets/6c85f80c-42ed-4c76-9afd-22db5e0c2416)
 
 
 
