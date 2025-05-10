@@ -50,8 +50,8 @@ Melog는 **“기록을 잘 쓰는 것”보다 “감정을 잘 느끼는 것�
 <img width="535" alt="image" src="https://github.com/user-attachments/assets/2812ac09-a025-47c6-8525-e637e6f6fab2" />
 
 
-## 사진과 감정기반 음악 추천 AI기능
-![MacBook Pro 16_ - 4](https://github.com/user-attachments/assets/6c85f80c-42ed-4c76-9afd-22db5e0c2416)
+## 사진과 감정기반 음악 추천 AI기능!
+![image](https://github.com/user-attachments/assets/6f23c716-c2fa-441a-9777-9821e499260f)
 
 
 ## 🛠️ 개발 스택
