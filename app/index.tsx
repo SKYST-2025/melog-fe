@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+
 
 import { CustomCalendar } from "@/widgets/calendar/ui";
 import { format } from "date-fns";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 import { Moment } from "@/objects/moment/model";
 
@@ -36,10 +37,16 @@ export default function HomeScreen() {
       <Link href="/detail">
         <Text>상세화면 보기</Text>
       </Link>
-
-      <Link href="/create">
-        <Text>오늘 기록하기</Text>
-      </Link>
+      
+      <Pressable
+        style={{borderRadius: 15, backgroundColor: "#cccccc", width:100, height:30, justifyContent:'center', alignItems:'center'}}
+        onPress={() => {
+          router.push("/create")
+        }}  
+      >
+       <Text>오늘 기록하기</Text>
+      </Pressable>
+ 
     </View>
   );
 }
