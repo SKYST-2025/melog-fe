@@ -1,8 +1,86 @@
 import { format, parse } from "date-fns";
-import { ImageBackground } from "expo-image";
+import { Image, ImageBackground } from "expo-image";
 import { Text, View } from "react-native";
 
-import { Moment } from "../model";
+import { Moment, Mood, MOODCOLOR } from "../model";
+
+const getMoodEmoji = (mood: Mood) => {
+  if (mood === "bad") {
+    return (
+      <Image
+        source={require("@/shared/ui/emotion-bad.png")}
+        style={{
+          position: "absolute",
+          zIndex: 10,
+          bottom: 147,
+          left: 10,
+          width: 145,
+          height: 145,
+        }}
+      />
+    );
+  }
+  if (mood === "good") {
+    return (
+      <Image
+        source={require("@/shared/ui/emotion-good.png")}
+        style={{
+          position: "absolute",
+          zIndex: 10,
+          bottom: 147,
+          left: 10,
+          width: 145,
+          height: 145,
+        }}
+      />
+    );
+  }
+  if (mood === "verygood") {
+    return (
+      <Image
+        source={require("@/shared/ui/emotion-verygood.png")}
+        style={{
+          position: "absolute",
+          zIndex: 10,
+          bottom: 147,
+          left: 10,
+          width: 145,
+          height: 145,
+        }}
+      />
+    );
+  }
+  if (mood === "verybad") {
+    return (
+      <Image
+        source={require("@/shared/ui/emotion-verybad.png")}
+        style={{
+          position: "absolute",
+          zIndex: 10,
+          bottom: 147,
+          left: 10,
+          width: 145,
+          height: 145,
+        }}
+      />
+    );
+  }
+  if (mood === "normal") {
+    return (
+      <Image
+        source={require("@/shared/ui/emotion-normal.png")}
+        style={{
+          position: "absolute",
+          zIndex: 10,
+          bottom: 147,
+          left: 10,
+          width: 145,
+          height: 145,
+        }}
+      />
+    );
+  }
+};
 
 export const MomentCard = ({ data }: { data: Moment }) => {
   return (
@@ -10,6 +88,18 @@ export const MomentCard = ({ data }: { data: Moment }) => {
       source={{ uri: data.photoUri }}
       style={{ width: "100%", height: "100%", flexDirection: "column-reverse" }}
     >
+      {getMoodEmoji(data.mood)}
+
+      <Image
+        source={require("@/shared/ui/sound-motion.gif")}
+        style={{
+          position: "absolute",
+          bottom: 80,
+          left: 12,
+          width: 405,
+          height: 100,
+        }}
+      />
       <DetailInfoSection data={data} />
     </ImageBackground>
   );
@@ -19,6 +109,8 @@ const DetailInfoSection = ({ data }: { data: Moment }) => {
   const dateString = data.date;
   const parsedDate = parse(dateString, "yyyy-MM-dd", new Date());
   const formatted = format(parsedDate, "MMM d");
+
+  const moodColor = MOODCOLOR[data.mood];
 
   return (
     <View
@@ -45,14 +137,14 @@ const DetailInfoSection = ({ data }: { data: Moment }) => {
           style={{
             width: 140,
             height: 140,
-            backgroundColor: "#6F4CFB",
+            backgroundColor: moodColor,
             borderRadius: 14,
             flexDirection: "column",
             alignItems: "center",
             paddingTop: 10,
           }}
         >
-          <Text style={{ fontSize: 24, fontWeight: 700, color: "white" }}>
+          <Text style={{ fontSize: 24, fontWeight: 700, color: "black" }}>
             {formatted}
           </Text>
         </View>
@@ -85,7 +177,7 @@ const DetailInfoSection = ({ data }: { data: Moment }) => {
           right: 0,
           bottom: 0,
           height: 100,
-          backgroundColor: "#6F4CFB",
+          backgroundColor: moodColor,
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
         }}

@@ -1,6 +1,6 @@
 
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity, Image } from "react-native";
 import { CustomCalendar } from "@/widgets/calendar/ui";
 import { format } from "date-fns";
@@ -41,7 +41,19 @@ export default function HomeScreen() {
         </Pressable>
       </View>
       <CustomCalendar currentDate={currentDate} />
-    
+
+
+      <Image
+        source={require("@/shared/ui/bg-emojis.png")}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          width: 430,
+          height: "auto",
+          aspectRatio: 430 / 230,
+          opacity: 0.8,
+        }}
+      />
     </View>
   );
 }
