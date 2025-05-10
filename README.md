@@ -21,9 +21,9 @@
 
 
 컨셉감정사진 공유
+<img width="535" alt="image" src="https://github.com/user-attachments/assets/2812ac09-a025-47c6-8525-e637e6f6fab2" />
 
 
-![image](https://github.com/user-attachments/assets/8da7a833-9bae-4bcc-902b-192698353bba)
 
 ## 💡 왜 Melog인가?
 
