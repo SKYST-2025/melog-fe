@@ -1,4 +1,4 @@
-import { Moment, Mood, MOODCOLOR } from '@/objects/moment/model/moment';
+import { Moment, Mood, Music } from '@/objects/moment/model/moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { format } from 'date-fns';
 import * as ImagePicker from 'expo-image-picker';
@@ -6,7 +6,7 @@ import * as MediaLibrary from 'expo-media-library';
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { BackHandler, FlatList, Image, ImageBackground, Platform, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeOut, useSharedValue, withSpring } from 'react-native-reanimated';
 import Toast from 'react-native-root-toast';
 
 
@@ -15,6 +15,7 @@ export default function HomeScreen() {
     const [mood, setMood] = useState<null | Mood>(null)
     const [description, setDescription] = useState("")
     const [photos, setPhotos] = useState<MediaLibrary.Asset[]>([]);
+    const [music, setMusic] = useState<null | Music>(null)
 
     const ratio = 3.3;
 
@@ -96,14 +97,15 @@ export default function HomeScreen() {
     const date = format(today, "yyyy-MM-dd"); // "2025-05-10"
 
     const saveMoment = async () => {
-        if (!mood || !image) return; // need fallback logic
+        if (!mood || !image || !music) return; // need fallback logic
 
         const key = date;
         const value: Moment = {
             date: key,
             mood: mood,
             photoUri: image,
-            description: description
+            description: description,
+            music: music,
         }
         try {
             await AsyncStorage.setItem(key, JSON.stringify(value));
@@ -120,12 +122,24 @@ export default function HomeScreen() {
         useSharedValue(50),
     ]
 
+    const assets = [
+        require("@/shared/ui/emotion-verygood.png"),
+        require("@/shared/ui/emotion-good.png"),
+        require("@/shared/ui/emotion-normal.png"),
+        require("@/shared/ui/emotion-bad.png"),
+        require("@/shared/ui/emotion-verybad.png")
+    ]
+
     return (
         <View style={styles.container}>
             <ImageBackground source={image && step > 0 ? { uri: image } : undefined} resizeMode='cover' style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
                 <View style={{ width: '100%', height: '100%', backgroundColor: step > 0 ? 'rgba(0, 0, 0, 0.5)' : undefined, justifyContent: 'center', alignItems: 'center' }}>
                     {step === 0 &&
-                        <>
+                        <Animated.View
+                            key={step}
+                            entering={FadeIn}
+                            exiting={FadeOut}
+                        >
                             {/*<Button title="갤러리에서 선택" onPress={pickImageFromGallery} />
                             <View style={{ height: 10 }} />
                             <Button title="카메라로 사진 찍기" onPress={takePhotoWithCamera} />*/}
@@ -155,10 +169,12 @@ export default function HomeScreen() {
                                 }}
                             />
                             {/* image && <Button title="다음" onPress={() => setStep(prev => prev + 1)} />*/}
-                        </>
+                        </Animated.View>
                     }
                     {
-                        step === 1 && <View style={{ flex: 1, width:'100%' }}>
+                        step === 1 && <Animated.View style={{ flex: 1, width:'100%' }} key={step}
+                        entering={FadeIn}
+                        exiting={FadeOut}>
                         <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
                             <Text style={{ fontSize: 30, color: 'white' }}>
                                 Mood Select
@@ -174,7 +190,7 @@ export default function HomeScreen() {
                                         width:scales[i],
                                         height:scales[i],
                                         borderRadius: 50,
-                                        backgroundColor: MOODCOLOR[v],
+                                        backgroundColor: "transparent", //MOODCOLOR[v],
                                         borderColor: 'black',
                                     }}><Pressable
                                         
@@ -188,13 +204,15 @@ export default function HomeScreen() {
                                         }}
                                         style={{
                                             flex:1,
-                                            width:'100%'
+                                            width:'100%',
+                                            height: '100%'
                                         }}
-                                    />
+                                    >
+                                        <Image source={assets[i]} style={{width:'100%', height:'100%'}}/>
+                                        </Pressable>
                                     </Animated.View>
                                 })}
                             </View>
-                
                             <View style={{ height: 35 }} />
                 
                             <TextInput placeholder='memo...' style={{ borderRadius: 15, width: '90%', backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'white' }} placeholderTextColor="white" value={description} onChangeText={setDescription} />
@@ -205,33 +223,36 @@ export default function HomeScreen() {
                             <Text style={{ fontSize: 64 / ratio }}>완료</Text>
                         </TouchableOpacity>
                         </View>
-                    </View>
+                    </Animated.View>
                     }
                     {
-                        step === 2 && <>
+                        step === 2 && <Animated.View
+                        key={step}
+                        entering={FadeIn}
+                        exiting={FadeOut}
+                        style={{ flex: 1, width:'100%', justifyContent:'center', alignItems:"center" }}>
                             <Text style={{ color: 'white' }}>Our Recommendation</Text>
-                            <View style={{ backgroundColor: 'black', width: 150, height: 150, borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ backgroundColor: 'white', width: 30, height: 30, borderRadius: 25 }} />
-                            </View>
+                            <Image source={require("@/shared/ui/disc.png")} style={{width:200, height:200}}/>
                             <Text style={{ color: 'white' }}>Ditto</Text>
                             <Text style={{ color: 'white' }}>NewJeans</Text>
-                            <View style={{ borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', width: 300, alignItems: 'center' }}>
+                            
+                            <View style={{height:30}} />
+
+                            <View style={{ borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', width: '90%', alignItems: 'center' }}>
                                 {[0, 1, 2].map((v, i) => <View style={{ flexDirection: 'row', padding: 10, width: '100%' }} key={i}>
-                                    <View style={{ backgroundColor: 'black', width: 50, height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center' }}>
-                                        <View style={{ backgroundColor: 'white', width: 10, height: 10, borderRadius: 25 }} />
-                                    </View>
+                                    <Image source={require("@/shared/ui/disc.png")} style={{width:80, height:80}}/>
                                     <View>
                                         <Text style={{ color: 'white' }}>Ditto</Text>
                                         <Text style={{ color: 'white' }}>NewJeans</Text>
                                     </View>
                                 </View>)}
 
-                                <Pressable style={{ borderColor: 'white', borderWidth: 1, borderRadius: 10 }}>
+                                <Pressable style={{ margin:20, borderColor: '#bababa', borderWidth: 1, borderRadius: 100, width:441/ratio, height:108/ratio, justifyContent:'center', alignItems:'center', }}>
                                     <Text style={{ color: "white" }}>more...</Text>
                                 </Pressable>
                             </View>
 
-                            <Pressable style={{ borderColor: 'white', borderWidth: 1, borderRadius: 10 }} onPress={
+                            <Pressable style={{ borderRadius: 100, width:441/ratio, height:108/ratio, justifyContent:'center', alignItems:'center', backgroundColor:'#6F4CFB'}} onPress={
                                 () => saveMoment().then(() => {
                                     Toast.show("기록이 저장되었어요.");
                                     router.replace(`/detail?date=${date}`)
@@ -239,7 +260,7 @@ export default function HomeScreen() {
                             >
                                 <Text style={{ color: "white" }}>choose</Text>
                             </Pressable>
-                        </>
+                        </Animated.View>
                     }
                 </View>
             </ImageBackground>
