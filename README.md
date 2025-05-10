@@ -1,5 +1,7 @@
 # 하루의 순간, 내 기분으로 만든 나만의 사운드트랙 앱, Melog 앱 📸🎨🎵
-![image](https://github.com/user-attachments/assets/a5ca0257-d420-4057-95b7-962939c68cc3)
+
+![image](https://github.com/user-attachments/assets/16842a7c-9868-425e-83cf-4a3936e4b7e8)
+
 
 ## 주요 기능 (Features)
 📸 하루 한 장의 감정 사지 업로드
