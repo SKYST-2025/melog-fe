@@ -1,7 +1,9 @@
+import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Calendar } from "react-native-calendars";
 
+import { getMoment } from "@/objects/moment/api/getMoment";
 import { Moment } from "@/objects/moment/model";
 import { CalendarItem } from "@/widgets/calendar/ui/CalendarItem";
 
@@ -13,26 +15,10 @@ type CalendarItemType = {
 
 interface CustomCalendarProps {
   currentDate: string;
-  momentsData: Moment[];
 }
 
-export const CustomCalendar = ({
-  currentDate,
-  momentsData,
-}: CustomCalendarProps) => {
+export const CustomCalendar = ({ currentDate }: CustomCalendarProps) => {
   const [selectedDate, setSelectedDate] = useState("");
-
-  const markedDates = momentsData.reduce(
-    (acc: Record<string, CalendarItemType>, item: Moment) => {
-      acc[item.date] = {
-        marked: true,
-        dotColor: "blue",
-        customData: item,
-      };
-      return acc;
-    },
-    {}
-  );
 
   useEffect(() => {
     setSelectedDate(currentDate);
@@ -48,28 +34,19 @@ export const CustomCalendar = ({
           },
         }}
         current={selectedDate}
-        markedDates={{
-          ...markedDates,
-          [selectedDate]: {
-            ...(markedDates[selectedDate] || {}),
-            selected: true,
-            selectedColor: "orange",
-          },
-        }}
         dayComponent={({ date, marking, state }) => {
-          const customMarking = marking as any;
-          const item = customMarking?.customData;
+          const [item, setMoment] = useState<Moment | null>(null);
 
-          const handlePress = () => {
-            date && setSelectedDate(date.dateString);
-            //TODO: 사진 열람 화면으로 연결
-          };
+          useEffect(() => {
+            const momentData = getMoment(date?.dateString as string);
+            momentData.then(setMoment as () => void);
+          }, [date]);
 
           if (item && item.photoUri && item.mood) {
             return (
-              <Pressable onPress={handlePress}>
+              <Link href={`/detail?date=${date?.dateString}`}>
                 <CalendarItem photoUri={item.photoUri} mood={item.mood} />
-              </Pressable>
+              </Link>
             );
           } else {
             return (

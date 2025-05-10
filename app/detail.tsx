@@ -1,33 +1,38 @@
-import { Moment } from '@/objects/moment/model/moment';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-
+import { getMoment } from "@/objects/moment/api/getMoment";
+import { Moment } from "@/objects/moment/model/moment";
+import { ImageBackground } from "expo-image";
+import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
   const params = useLocalSearchParams();
   const date = params.date as string;
 
-  const [moment, setMoment] = useState<null | Moment>(null)
+  const [moment, setMoment] = useState<null | Moment>(null);
 
   useEffect(() => {
-    AsyncStorage.getItem(date).then(v => {
-      const moment:Moment = JSON.parse(v || "")
-      setMoment(moment)
-    })
-  }, [])
+    const moment = getMoment(date);
+    moment.then(setMoment as () => void);
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Text>{date}</Text>
-      {moment && <>
-        <Text>{moment.date}</Text>
-        <Text>{moment.description}</Text>
-        <Text>{moment.mood}</Text>
-        <Text>{moment.photoUri}</Text>
-        <Image source={{uri: moment.photoUri}} style={{width:200, height:200}}></Image>
-      </>}
+      {moment && (
+        <ImageBackground
+          source={{ uri: moment.photoUri }}
+          style={{ width: "100%", height: "100%" }}
+        >
+          <Text>{moment.date}</Text>
+          <Text>{moment.description}</Text>
+          <Text>{moment.mood}</Text>
+          <Text>{moment.photoUri}</Text>
+          {/* <Image
+            source={{ uri: moment.photoUri }}
+            style={{ width: 200, height: 200 }}
+          ></Image> */}
+        </ImageBackground>
+      )}
     </View>
   );
 }
@@ -35,13 +40,8 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
+  link: {},
 });
-
