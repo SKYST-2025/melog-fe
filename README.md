@@ -45,12 +45,12 @@ Melog는 **“기록을 잘 쓰는 것”** 보다 **“감정을 잘 느끼는 
 🎼 이달의 감정 사운드트랙 자동 생성 및 공유
 
 
-[5가지 감정사진 공유]
+**[5가지 감정사진 입력 예시]**
 
 <img width="535" alt="image" src="https://github.com/user-attachments/assets/2812ac09-a025-47c6-8525-e637e6f6fab2" />
 
 
-[감정 리포트 관리]
+**[감정 리포트 관리]**
 
 ![image](https://github.com/user-attachments/assets/d6026134-9fb5-4925-a5df-36d6e9865d11)
 
