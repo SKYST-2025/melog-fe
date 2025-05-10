@@ -27,12 +27,6 @@ export const CustomCalendar = ({ currentDate }: CustomCalendarProps) => {
   return (
     <View style={{ width: "100%", height: "auto" }}>
       <Calendar
-        style={{ backgroundColor: undefined }}
-        theme={{
-          stylesheet: {
-            calendar: { main: { style: { backgroundColor: "red" } } },
-          },
-        }}
         current={selectedDate}
         dayComponent={({ date, marking, state }) => {
           const [item, setMoment] = useState<Moment | null>(null);
@@ -79,11 +73,12 @@ export const CustomCalendar = ({ currentDate }: CustomCalendarProps) => {
 
 const styles = StyleSheet.create({
   dayContainer: {
-    backgroundColor: "red",
+    backgroundColor: "#f1f3f5",
+    borderRadius: 999,
     alignItems: "center",
     justifyContent: "center",
-    width: 48,
-    height: 48,
+    width: 50,
+    height: 50,
   },
   // eventBox: {
   //   marginBottom: 10,

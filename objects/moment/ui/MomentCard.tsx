@@ -106,7 +106,7 @@ const DetailInfoSection = ({ data }: { data: Moment }) => {
         }}
       >
         <Text style={{ fontSize: 22, fontWeight: 400, color: "black" }}>
-          {data?.music?.singer ?? "here's description."}
+          {data?.description ?? "here's description."}
         </Text>
       </View>
     </View>
