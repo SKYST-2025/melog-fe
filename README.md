@@ -50,6 +50,10 @@ Melog는 **“기록을 잘 쓰는 것”** 보다 **“감정을 잘 느끼는 
 <img width="535" alt="image" src="https://github.com/user-attachments/assets/2812ac09-a025-47c6-8525-e637e6f6fab2" />
 
 
+[감정 리포트 관리]
+
+![image](https://github.com/user-attachments/assets/d6026134-9fb5-4925-a5df-36d6e9865d11)
+
 ## 사진과 감정기반 음악 추천 AI기능!
 ![image](https://github.com/user-attachments/assets/6f23c716-c2fa-441a-9777-9821e499260f)
 
