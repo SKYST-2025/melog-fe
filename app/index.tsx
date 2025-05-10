@@ -37,6 +37,11 @@ export default function HomeScreen() {
       <Link href="/create">
         <Text>오늘 기록하기</Text>
       </Link>
+
+
+      <Link href="/Playlist">
+        <Text>상세화면 보기</Text>
+      </Link>
     </View>
   );
 }

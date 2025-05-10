@@ -23,6 +23,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="create" options={{ headerShown: false }} />
         <Stack.Screen name="detail" options={{ headerShown: false }} />
+        <Stack.Screen name="Playlist" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
