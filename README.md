@@ -8,6 +8,11 @@
 
 ![image](https://github.com/user-attachments/assets/a0de7c46-6018-4fd8-b633-91a9bceae554)
 
+
+## 모든 절차의 간소화, 입력은 간단하게,  1분안에 끝!
+
+📸 하루 한 장 + 🎭 5가지 감정 + 텍스트 20자 이내 입력 + 🎵 AI 기반 감정-맞춤 음악 
+
 ## 주요 기능 (Features)
 📸 하루 한 장의 감정 사진 업로드
 
@@ -23,9 +28,6 @@
 [5가지 감정사진 공유]
 
 <img width="535" alt="image" src="https://github.com/user-attachments/assets/2812ac09-a025-47c6-8525-e637e6f6fab2" />
-
-## 모든 절차의 간소화, 입력은 간단하게 1분안에 끝!
-📸 하루 한 장 + 🎭 5가지 감정 + 텍스트 20자 이내 입력 + 🎵 AI 기반 감정-맞춤 음악 
 
 
 
