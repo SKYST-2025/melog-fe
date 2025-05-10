@@ -1,3 +1,6 @@
+import { Moment, Mood, MOODCOLOR } from '@/objects/moment/model/moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { format } from 'date-fns';
 import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
@@ -5,10 +8,10 @@ import { BackHandler, Button, ImageBackground, Platform, Pressable, StyleSheet, 
 
 export default function HomeScreen() {
     const [step, setStep] = useState(0);
-    const [mood, setMood] = useState<null | number>(null)
+    const [mood, setMood] = useState<null | Mood>(null)
     const [description, setDescription] = useState("")
 
-    const moodList = [1, 2, 3, 4, 5]
+    const moodList: Mood[] = ["verygood", "good", "normal", "bad", "verybad"]
 
     const [image, setImage] = useState<string | null>(null);
 
@@ -65,6 +68,24 @@ export default function HomeScreen() {
             setImage(result.assets[0].uri);
         }
     };
+    const today = new Date();
+    const date = format(today, "yyyy-MM-dd"); // "2025-05-10"
+    const saveMoment = async () => {
+        if(!mood || !image) return; // need fallback logic
+
+        const key = date;
+        const value: Moment = {
+            date: key,
+            mood: mood,
+            photoUri: image,
+            description: description
+        } 
+        try {
+            await AsyncStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+            console.error('저장 실패:', e);
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -87,17 +108,16 @@ export default function HomeScreen() {
 
                             <View style={{ height: 20 }} />
 
-                            <View style={{ flexDirection: 'row', width: 300, justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'row', width: 300, justifyContent: 'space-between', alignItems:'center' }}>
                                 {moodList.map((v, i) => {
                                     return <Pressable
                                         key={v}
                                         onPress={() => setMood(v)}
                                         style={{
-                                            width: 50,
-                                            height: 50,
-                                            borderRadius: 25,
-                                            borderWidth: 1,
-                                            backgroundColor: v === mood ? 'gray' : 'transparent',
+                                            width: v === mood ? 75 : 50,
+                                            height: v === mood ? 75 : 50,
+                                            borderRadius: 50,
+                                            backgroundColor: MOODCOLOR[v],
                                             borderColor: 'black',
                                         }}
                                     />
@@ -140,7 +160,9 @@ export default function HomeScreen() {
                                 </Pressable>
                             </View>
 
-                            <Pressable style={{ borderColor: 'white', borderWidth: 1, borderRadius: 10 }} onPress={() => router.replace('/detail')}>
+                            <Pressable style={{ borderColor: 'white', borderWidth: 1, borderRadius: 10 }} onPress={
+                                () => saveMoment().then(() => router.replace(`/detail?date=${date}`), ()=>{alert("error")})}
+                            >
                                 <Text style={{ color: "white" }}>choose</Text>
                             </Pressable>
                         </>
