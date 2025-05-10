@@ -1,13 +1,8 @@
-
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-import { ScrollView, TouchableOpacity, Image } from "react-native";
 import { CustomCalendar } from "@/widgets/calendar/ui";
 import { format } from "date-fns";
 import { router } from "expo-router";
-import { Link } from "expo-router";
-import { useRouter } from "expo-router";
-import { useLocalSearchParams } from "expo-router";
 
 export default function HomeScreen() {
   const currentDate = format(new Date(), "yyyy-MM-dd");
@@ -41,7 +36,6 @@ export default function HomeScreen() {
         </Pressable>
       </View>
       <CustomCalendar currentDate={currentDate} />
-
 
       <Image
         source={require("@/shared/ui/bg-emojis.png")}
