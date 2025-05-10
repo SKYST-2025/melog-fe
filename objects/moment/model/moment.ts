@@ -3,6 +3,7 @@ export type Moment = {
   mood: Mood;
   photoUri: string;
   description: string;
+  music: Music;
 };
 
 export type Mood = "verygood" | "good" | "normal" | "bad" | "verybad";
@@ -14,3 +15,8 @@ export const MOODCOLOR: Record<Mood, string> = {
   good: "#58BB63",
   verygood: "#F9DC00",
 } as const;
+
+export interface Music {
+  title: string;
+  singer: string;
+}
