@@ -2,9 +2,10 @@
 
 ![image](https://github.com/user-attachments/assets/16842a7c-9868-425e-83cf-4a3936e4b7e8)
 
+![image](https://github.com/user-attachments/assets/b1fc967b-9c3b-4a9b-97d4-abce0dafbd29)
 
 ## 주요 기능 (Features)
-📸 하루 한 장의 감정 사지 업로드
+📸 하루 한 장의 감정 사진 업로드
 
 🎭 5가지 감정 선택 (긍정, 좋음, 쇰쇰, 슬프름, 화남)
 
