@@ -1,4 +1,4 @@
-# 하루의 순간, 내 기분으로 만든 나만의 사운드트랙 앱, Melog 앱 📸🎨🎵
+![image](https://github.com/user-attachments/assets/f6b7a653-417e-401d-9dad-17332f15af9c)# 하루의 순간, 내 기분으로 만든 나만의 사운드트랙 앱, Melog 앱 📸🎨🎵
 
 ![image](https://github.com/user-attachments/assets/16842a7c-9868-425e-83cf-4a3936e4b7e8)
 
@@ -28,6 +28,8 @@
 ## 모든 절차의 간소화, 입력은 간단하게 사진과 감정기반 음악 추천 AI기능
 ![fin](https://github.com/user-attachments/assets/adc90909-6224-4168-93e6-d3f8f8ac6657)
 
+
+
 ## 🛠️ 개발 스택
 
 ### 📱 앱 (Mobile)
@@ -40,6 +42,9 @@
 
 
 ## 실행 사진
+
+![image](https://github.com/user-attachments/assets/a95bd517-c6bc-467b-b5a1-808194c440db)
+
 ![Screenshot_20250511_062419_melog](https://github.com/user-attachments/assets/bac7df33-410e-4e7d-a993-35827b6d99b3)
 ![Screenshot_20250511_062534_melog](https://github.com/user-attachments/assets/4721b932-2413-42bb-b849-92926e3f5e1d)
 ![Screenshot_20250511_062530_melog](https://github.com/user-attachments/assets/8589404b-737c-485b-8219-f09f58c5a96c)
