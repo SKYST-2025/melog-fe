@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-
 /*
 import { StyleSheet, Text, View ,ScrollView, TouchableOpacity, Image } from "react-native";
-=======
-import { Pressable, StyleSheet, Text, View } from "react-native";
->>>>>>> 87202a44889ee6ab353903b86eda02f99e230d4b
 
 import { CustomCalendar } from "@/widgets/calendar/ui";
 import { format } from "date-fns";
-<<<<<<< HEAD
 import { Link } from "expo-router";
 import { useRouter } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
@@ -31,9 +25,6 @@ const mockingData: Moment[] = [
     photoUri: "https://picsum.photos/id/1012/100/100",
   },
 ];
-=======
-import { router } from "expo-router";
->>>>>>> 87202a44889ee6ab353903b86eda02f99e230d4b
 
 export default function HomeScreen() {
   const currentDate = format(new Date(), "yyyy-MM-dd");
@@ -71,7 +62,6 @@ export default function HomeScreen() {
         </Pressable>
       </View>
 
-<<<<<<< HEAD
       <Link href="/detail">
         <Text>상세화면 보기</Text>
       </Link>
@@ -116,9 +106,6 @@ export default function HomeScreen() {
         })}
       </ScrollView>
       
-=======
-      <CustomCalendar currentDate={currentDate} />
->>>>>>> 87202a44889ee6ab353903b86eda02f99e230d4b
     </View>
     
   );
