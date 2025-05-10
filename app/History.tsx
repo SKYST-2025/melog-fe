@@ -2,6 +2,7 @@ import { MoodEmoji } from "@/components/ui/MoodEmoji";
 import { getMoment } from "@/objects/moment/api/getMoment";
 import { Moment, Mood } from "@/objects/moment/model";
 import { format } from "date-fns";
+import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
@@ -146,6 +147,17 @@ export default function MoodStatsPage() {
           </View>
         ))}
       </View>
+      <Image
+        source={require("@/shared/ui/bg-emojis.png")}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          width: 430,
+          height: "auto",
+          aspectRatio: 430 / 230,
+          opacity: 0.8,
+        }}
+      />
     </View>
   );
 }
@@ -162,7 +174,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 22,
-    marginTop: 110,
+    marginTop: 50,
     textAlign: "center",
   },
   legendContainer: {
