@@ -20,10 +20,12 @@
 🎼 이달의 감정 사운드트랙 자동 생성 및 공유
 
 
-컨셉감정사진 공유
-
+[5가지 감정사진 공유]
 
 <img width="535" alt="image" src="https://github.com/user-attachments/assets/2812ac09-a025-47c6-8525-e637e6f6fab2" />
+
+## 모든 절차의 간소화, 입력은 간단하게 1분안에 끝!
+📸 하루 한 장 + 🎭 5가지 감정 + 텍스트 20자 이내 입력 + 🎵 AI 기반 감정-맞춤 음악 
 
 
 
@@ -35,9 +37,8 @@
 
 🎵 음악이 그냥의 기분을 대신 기억해줍니다.
 
-## 모든 절차의 간소화, 입력은 간단하게 사진과 감정기반 음악 추천 AI기능
+## 사진과 감정기반 음악 추천 AI기능
 ![MacBook Pro 16_ - 4](https://github.com/user-attachments/assets/6c85f80c-42ed-4c76-9afd-22db5e0c2416)
-
 
 
 ## 🛠️ 개발 스택
