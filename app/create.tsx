@@ -6,7 +6,7 @@ import * as MediaLibrary from 'expo-media-library';
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { BackHandler, FlatList, Image, ImageBackground, Platform, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Animated, { FadeIn, FadeOut, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { Easing, FadeIn, FadeOut, useAnimatedStyle, useSharedValue, withRepeat, withSpring, withTiming } from 'react-native-reanimated';
 import Toast from 'react-native-root-toast';
 
 
@@ -31,7 +31,7 @@ export default function HomeScreen() {
         }
         return true
     };
-
+    const rotation = useSharedValue(0);
     useEffect(() => {
         (async () => {
             if (Platform.OS !== 'web') {
@@ -59,7 +59,13 @@ export default function HomeScreen() {
           })();
 
         const backHandler = BackHandler.addEventListener('hardwareBackPress', handleCancel);
-
+        rotation.value = withRepeat(
+            withTiming(rotation.value - 360, {
+              duration: 10000,
+              easing: Easing.linear,
+            }),
+            -1 // 무한 반복
+          );
         return () => backHandler.remove();
 
     }, [step]);
@@ -130,6 +136,13 @@ export default function HomeScreen() {
         require("@/shared/ui/emotion-verybad.png")
     ]
 
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+          transform: [{ rotate: `${rotation.value}deg` }], // sharedValue에 따라 X축으로 이동하는 스타일
+        };
+      });
+
+
     return (
         <View style={styles.container}>
             <ImageBackground source={image && step > 0 ? { uri: image } : undefined} resizeMode='cover' style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
@@ -177,7 +190,7 @@ export default function HomeScreen() {
                         exiting={FadeOut}>
                         <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
                             <Text style={{ fontSize: 30, color: 'white' }}>
-                                Mood Select
+                                How are you feeling today?
                             </Text>
                 
                             <View style={{ height: 35 }} />
@@ -215,11 +228,13 @@ export default function HomeScreen() {
                             </View>
                             <View style={{ height: 35 }} />
                 
-                            <TextInput placeholder='memo...' style={{ borderRadius: 15, width: '90%', backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'white' }} placeholderTextColor="white" value={description} onChangeText={setDescription} />
+                            <TextInput placeholder='Write a note...' style={{ borderRadius: 15, width: '90%', backgroundColor: 'rgba(0, 0, 0, 0.4)', color: 'white' }} placeholderTextColor="white" value={description} onChangeText={setDescription} />
                         </View>
                 
                         <View style={{alignItems:'center', position:'absolute', bottom:50, width:'100%'}}>
-                        <TouchableOpacity onPress={() => setStep(prev => prev + 1)} disabled={mood === null} style={{ width: 670 / ratio, height: 155 / ratio, backgroundColor: "#d9d9d9", borderRadius: 69 / ratio, justifyContent: 'center', alignItems: 'center' }}>
+                        <TouchableOpacity onPress={() => {
+                            setStep(prev => prev + 1)
+                        }} disabled={mood === null} style={{ width: 670 / ratio, height: 155 / ratio, backgroundColor: "#d9d9d9", borderRadius: 69 / ratio, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ fontSize: 64 / ratio }}>완료</Text>
                         </TouchableOpacity>
                         </View>
@@ -232,7 +247,11 @@ export default function HomeScreen() {
                         exiting={FadeOut}
                         style={{ flex: 1, width:'100%', justifyContent:'center', alignItems:"center" }}>
                             <Text style={{ color: 'white' }}>Our Recommendation</Text>
-                            <Image source={require("@/shared/ui/disc.png")} style={{width:200, height:200}}/>
+                            <Animated.View style={animatedStyle}>
+
+                            <Animated.Image source={require("@/shared/ui/disc.png")} style={{width:200, height:200, }}/>
+                            </Animated.View>
+
                             <Text style={{ color: 'white' }}>Ditto</Text>
                             <Text style={{ color: 'white' }}>NewJeans</Text>
                             
@@ -247,7 +266,11 @@ export default function HomeScreen() {
                                     </View>
                                 </View>)}
 
-                                <Pressable style={{ margin:20, borderColor: '#bababa', borderWidth: 1, borderRadius: 100, width:441/ratio, height:108/ratio, justifyContent:'center', alignItems:'center', }}>
+                                <Pressable
+                                
+                                onPress={() => {rotation.value = withSpring(rotation.value + 200)}}
+
+                                style={{ margin:20, borderColor: '#bababa', borderWidth: 1, borderRadius: 100, width:441/ratio, height:108/ratio, justifyContent:'center', alignItems:'center', }}>
                                     <Text style={{ color: "white" }}>more...</Text>
                                 </Pressable>
                             </View>
