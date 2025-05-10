@@ -3,12 +3,12 @@ import { getAllMomentsInCurrentMonth } from "@/objects/moment/api/getMoment";
 import { Moment, Mood } from "@/objects/moment/model";
 import { AntDesign } from "@expo/vector-icons";
 import { isValid, parseISO } from "date-fns";
+import { Image } from "expo-image";
 import { Link, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -18,7 +18,7 @@ import {
 // --- Song 타입 ---
 interface Song {
   title: string;
-  artist: string;
+  singer: string;
   comment: string;
   emoji: string;
   imageUri: string;
@@ -47,8 +47,8 @@ const groupByWeek = (currentDate: string, data: Moment[]) => {
     const key = `${month} - Week ${weekNumber}`;
 
     const song: Song = {
-      title: moment.description,
-      artist: moment.music?.singer || "",
+      title: moment.music?.title || "",
+      singer: moment.music?.singer || "",
       comment: moment.description,
       emoji: moment.mood,
       imageUri: moment.photoUri,
@@ -154,7 +154,7 @@ const Playlist: React.FC<{ data: Moment[]; currentDate: string }> = ({
               )}
               <View style={styles.songText}>
                 <Text style={styles.title}>
-                  {item.title} - {item.artist}
+                  {item.title} - {item.singer}
                 </Text>
                 <Text style={styles.comment}>{item.comment}</Text>
               </View>

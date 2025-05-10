@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image } from "expo-image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Pressable,
@@ -99,7 +99,7 @@ import { getMoment } from "@/objects/moment/api/getMoment";
 import { Moment } from "@/objects/moment/model";
 import { CustomCalendar } from "@/widgets/calendar/ui";
 import { format } from "date-fns";
-import { Link, router } from "expo-router";
+import { Link, router, useFocusEffect } from "expo-router";
 import { PlaylistSection } from "./PlaylistSection";
 import { TopEmotion } from "./TopEmotion";
 
@@ -136,6 +136,7 @@ export default function HomeScreen() {
   const currentDate = format(new Date(), "yyyy-MM-dd");
   const [data, setData] = useState<Record<string, Moment>>({});
   const [loading, setLoading] = useState(true);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -156,6 +157,14 @@ export default function HomeScreen() {
     })();
   }, []);
 
+  useFocusEffect(
+    useCallback(() => {
+      setCounter((prev) => {
+        console.log(prev);
+        return prev + 1;
+      });
+    }, [])
+  );
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -168,10 +177,10 @@ export default function HomeScreen() {
       setData(momentsObj);
       setLoading(false);
     })();
-  }, []);
+  }, [counter]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} id={counter.toString()}>
       <View
         style={{
           flexDirection: "row",
@@ -202,7 +211,7 @@ export default function HomeScreen() {
       {loading ? (
         <ActivityIndicator size="large" style={{ marginVertical: 40 }} />
       ) : (
-        <CustomCalendar data={data} />
+        <CustomCalendar data={data} key={counter} counter={counter} />
       )}
 
       <View

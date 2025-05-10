@@ -14,6 +14,7 @@ type CalendarItemType = {
 
 interface CustomCalendarProps {
   data: Record<string, Moment>;
+  counter: number;
 }
 
 export const CustomCalendar = ({ data }: CustomCalendarProps) => {
