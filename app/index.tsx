@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image } from "expo-image";
 import { useEffect, useState } from "react";
 import {
@@ -8,6 +9,92 @@ import {
   View,
 } from "react-native";
 
+const setMockMoments = async () => {
+  for (const moment of mockMoments) {
+    await AsyncStorage.setItem(moment.date, JSON.stringify(moment));
+  }
+};
+
+export const mockMoments: Moment[] = [
+  {
+    date: "2025-05-01",
+    mood: "good",
+    photoUri:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJxo2NFiYcR35GzCk5T3nxA7rGlSsXvIfJwg&s",
+    description: "햇살 좋은 날 산책을 했어요.",
+    music: {
+      title: "Happy Day",
+      singer: "Sunshine Band",
+    },
+  },
+  {
+    date: "2025-05-03",
+    mood: "good",
+    photoUri:
+      "https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+    description: "친구와 맛있는 점심을 먹었어요.",
+    music: {
+      title: "Lunch Time",
+      singer: "Friends",
+    },
+  },
+  {
+    date: "2025-05-10",
+    mood: "normal",
+    photoUri:
+      "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&h=350", // Pexels[2]
+    description: "평범하게 보낸 하루.",
+    music: {
+      title: "Ordinary",
+      singer: "Daily Life",
+    },
+  },
+  {
+    date: "2025-04-15",
+    mood: "bad",
+    photoUri:
+      "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80", // Unsplash[1]
+    description: "회사에서 실수를 해서 속상했어요.",
+    music: {
+      title: "Mistake",
+      singer: "Work Blues",
+    },
+  },
+  {
+    date: "2025-04-22",
+    mood: "verybad",
+    photoUri:
+      "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&h=350", // Pexels[2]
+    description: "몸이 아파서 힘든 하루였어요.",
+    music: {
+      title: "Sick Day",
+      singer: "Resting",
+    },
+  },
+  {
+    date: "2025-04-24",
+    mood: "good",
+    photoUri:
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80", // Unsplash[1]
+    description: "오랜만에 가족과 저녁을 먹었어요.",
+    music: {
+      title: "Family Dinner",
+      singer: "Home Sweet Home",
+    },
+  },
+  {
+    date: "2025-04-28",
+    mood: "verygood",
+    photoUri:
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80", // Unsplash[1]
+    description: "여행을 다녀와서 기분이 최고!",
+    music: {
+      title: "Travel Vibes",
+      singer: "Adventure",
+    },
+  },
+];
+
 import { getMoment } from "@/objects/moment/api/getMoment";
 import { Moment } from "@/objects/moment/model";
 import { CustomCalendar } from "@/widgets/calendar/ui";
@@ -15,6 +102,15 @@ import { format } from "date-fns";
 import { Link, router } from "expo-router";
 import { PlaylistSection } from "./PlaylistSection";
 import { TopEmotion } from "./TopEmotion";
+
+const clearAllStorage = async () => {
+  try {
+    await AsyncStorage.clear();
+    console.log("AsyncStorage가 모두 삭제되었습니다!");
+  } catch (e) {
+    console.error("스토리지 삭제 중 오류:", e);
+  }
+};
 
 const getAllMomentsInCurrentMonth = async () => {
   const now = new Date();
@@ -40,6 +136,25 @@ export default function HomeScreen() {
   const currentDate = format(new Date(), "yyyy-MM-dd");
   const [data, setData] = useState<Record<string, Moment>>({});
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const alreadyInit = await AsyncStorage.getItem("mock_init");
+      if (!alreadyInit) {
+        await setMockMoments();
+        await AsyncStorage.setItem("mock_init", "true");
+      }
+
+      setLoading(true);
+      const momentsArray = await getAllMomentsInCurrentMonth();
+      const momentsObj: Record<string, Moment> = {};
+      momentsArray.forEach(({ date, moment }) => {
+        if (moment) momentsObj[date] = moment;
+      });
+      setData(momentsObj);
+      setLoading(false);
+    })();
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -107,11 +222,11 @@ export default function HomeScreen() {
           이달의 리포트
         </Text>
         <View style={{ flexDirection: "row", gap: 60 }}>
-          <Link href={`/History?currentDate=${data.date}`}>
+          <Link href={`/History?currentDate=${currentDate}`}>
             <TopEmotion data={data} />
           </Link>
 
-          <Link href={`/Playlist?currentDate=${data.date}`}>
+          <Link href={`/Playlist?currentDate=${currentDate}`}>
             <PlaylistSection data={data} />
           </Link>
         </View>

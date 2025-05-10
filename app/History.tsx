@@ -128,7 +128,7 @@ export default function MoodStatsPage() {
           backgroundGradientFrom: "#fff",
           backgroundGradientTo: "#fff",
           decimalPlaces: 0,
-          color: (opacity = 1) => `rgba(255, 206, 102, ${opacity})`,
+          color: (opacity = 1) => "purple",
           labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
           style: {
             borderRadius: 16,

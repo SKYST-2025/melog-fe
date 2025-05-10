@@ -1,52 +1,41 @@
-import { format, isValid, parseISO } from "date-fns";
-import { useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-
-import { getMoment } from "@/objects/moment/api/getMoment";
-import { Moment } from "@/objects/moment/model";
+import { MoodEmoji } from "@/components/ui/MoodEmoji";
+import { getAllMomentsInCurrentMonth } from "@/objects/moment/api/getMoment";
+import { Moment, Mood } from "@/objects/moment/model";
 import { AntDesign } from "@expo/vector-icons";
-import { FlatList, Image, TouchableOpacity } from "react-native";
+import { isValid, parseISO } from "date-fns";
+import { Link, useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-const getAllMomentsInCurrentMonth = async (): Promise<Moment[]> => {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth(); // 0-based
-  const lastDay = new Date(year, month + 1, 0).getDate();
+// --- Song 타입 ---
+interface Song {
+  title: string;
+  artist: string;
+  comment: string;
+  emoji: string;
+  imageUri: string;
+  date?: string;
+}
 
-  const dateStrings = Array.from({ length: lastDay }, (_, i) =>
-    format(new Date(year, month, i + 1), "yyyy-MM-dd")
-  );
-
-  const moments = await Promise.all(
-    dateStrings.map(async (date) => ({
-      date,
-      moment: await getMoment(date),
-    }))
-  );
-
-  return moments
-    .filter((item) => item.moment)
-    .map(
-      (item) =>
-        ({
-          ...item.moment,
-          date: item.date,
-        } as Moment)
-    );
-};
-
+// --- 주차 계산 함수 (일요일 시작) ---
 const getWeekOfMonth = (date: Date) => {
   const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-  const dayOfWeek = startOfMonth.getDay(); // 0 (일) ~ 6 (토)
+  const dayOfWeek = startOfMonth.getDay();
   const offsetDate = date.getDate() + dayOfWeek;
   return Math.ceil(offsetDate / 7);
 };
 
+// --- 주차별로 그룹핑 ---
 const groupByWeek = (currentDate: string, data: Moment[]) => {
   const result: Record<string, Song[]> = {};
-  if (!Array.isArray(data))
-    return { grouped: result, sortedKeys: [], currentKey: "" };
 
   data.forEach((moment) => {
     if (!moment.date) return;
@@ -59,18 +48,9 @@ const groupByWeek = (currentDate: string, data: Moment[]) => {
 
     const song: Song = {
       title: moment.description,
-      artist: moment.mood,
+      artist: moment.music?.singer || "",
       comment: moment.description,
-      emoji:
-        moment.mood === "verygood"
-          ? "😄"
-          : moment.mood === "good"
-          ? "😊"
-          : moment.mood === "normal"
-          ? "😐"
-          : moment.mood === "bad"
-          ? "😟"
-          : "😞",
+      emoji: moment.mood,
       imageUri: moment.photoUri,
       date: moment.date,
     };
@@ -90,35 +70,19 @@ const groupByWeek = (currentDate: string, data: Moment[]) => {
   const currentWeekNumber = getWeekOfMonth(currentDateObj);
   const currentKey = `${currentMonth} - Week ${currentWeekNumber}`;
 
-  // 주차 키 정렬: currentKey가 맨 앞, 나머지는 날짜순
   const keys = Object.keys(result);
-  const sortedKeys = [
-    currentKey,
-    ...keys
-      .filter((k) => k !== currentKey)
-      .sort((a, b) => {
-        const [aMonth, aWeek] = a.split(" - Week ");
-        const [bMonth, bWeek] = b.split(" - Week ");
-        if (aMonth === bMonth) return Number(aWeek) - Number(bWeek);
-        return (
-          new Date(`${aMonth} 1, 2000`).getMonth() -
-          new Date(`${bMonth} 1, 2000`).getMonth()
-        );
-      }),
-  ];
+  const sortedKeys = keys.sort((a, b) => {
+    const [aMonth, aWeek] = a.split(" - Week ");
+    const [bMonth, bWeek] = b.split(" - Week ");
+    if (aMonth === bMonth) return Number(aWeek) - Number(bWeek);
+    return (
+      new Date(`${aMonth} 1, 2000`).getMonth() -
+      new Date(`${bMonth} 1, 2000`).getMonth()
+    );
+  });
 
   return { grouped: result, sortedKeys, currentKey };
 };
-
-// --- Song 타입 ---
-interface Song {
-  title: string;
-  artist: string;
-  comment: string;
-  emoji: string;
-  imageUri: string;
-  date?: string;
-}
 
 // --- Playlist 컴포넌트 ---
 const Playlist: React.FC<{ data: Moment[]; currentDate: string }> = ({
@@ -178,20 +142,29 @@ const Playlist: React.FC<{ data: Moment[]; currentDate: string }> = ({
         data={playlist}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
-            {item.imageUri ? (
-              <Image source={{ uri: item.imageUri }} style={styles.albumArt} />
-            ) : (
-              <View style={[styles.albumArt, { backgroundColor: "#ddd" }]} />
-            )}
-            <View style={styles.songText}>
-              <Text style={styles.title}>
-                {item.title} - {item.artist}
-              </Text>
-              <Text style={styles.comment}>{item.comment}</Text>
+          <Link href={`/detail?date=${item.date}`} style={{ marginTop: 12 }}>
+            <View style={styles.itemContainer}>
+              {item.imageUri ? (
+                <Image
+                  source={{ uri: item.imageUri }}
+                  style={styles.albumArt}
+                />
+              ) : (
+                <View style={[styles.albumArt, { backgroundColor: "#ddd" }]} />
+              )}
+              <View style={styles.songText}>
+                <Text style={styles.title}>
+                  {item.title} - {item.artist}
+                </Text>
+                <Text style={styles.comment}>{item.comment}</Text>
+              </View>
+              {/* <Text style={styles.emoji}>{item.emoji}</Text> */}
+              <MoodEmoji
+                mood={item.emoji as Mood}
+                style={{ width: 35, height: 35 }}
+              />
             </View>
-            <Text style={styles.emoji}>{item.emoji}</Text>
-          </View>
+          </Link>
         )}
         ListEmptyComponent={
           <Text style={{ textAlign: "center", marginTop: 24 }}>
@@ -208,12 +181,17 @@ export default function PlaylistPage() {
   const { currentDate } = useLocalSearchParams<{ currentDate: string }>();
   const [data, setData] = useState<Moment[]>([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     (async () => {
       setLoading(true);
+      // AsyncStorage에서 이번 달 모든 moment 불러오기
       const momentsArray = await getAllMomentsInCurrentMonth();
-      setData(momentsArray);
+      // null이 아닌 moment만 배열로 변환
+      setData(
+        momentsArray
+          .filter((item) => item.moment)
+          .map((item) => ({ ...item.moment, date: item.date } as Moment))
+      );
       setLoading(false);
     })();
   }, []);
@@ -247,6 +225,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: "#fff",
     flex: 1,
+    padding: 12,
   },
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
   header: {
@@ -271,7 +250,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#eee",
     borderRadius: 16,
     padding: 12,
-    marginTop: 12,
   },
   albumArt: {
     width: 50,
