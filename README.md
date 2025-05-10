@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/f6b7a653-417e-401d-9dad-17332f15af9c)# 하루의 순간, 내 기분으로 만든 나만의 사운드트랙 앱, Melog 앱 📸🎨🎵
+# 하루의 순간, 내 기분으로 만든 나만의 사운드트랙 앱, Melog 앱 📸🎨🎵
 
 ![image](https://github.com/user-attachments/assets/16842a7c-9868-425e-83cf-4a3936e4b7e8)
 
