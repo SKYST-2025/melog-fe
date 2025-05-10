@@ -9,6 +9,14 @@ import {
   View,
 } from "react-native";
 
+import { getMoment } from "@/objects/moment/api/getMoment";
+import { Moment } from "@/objects/moment/model";
+import { CustomCalendar } from "@/widgets/calendar/ui";
+import { format } from "date-fns";
+import { Link, router, useFocusEffect } from "expo-router";
+import { PlaylistSection } from "./PlaylistSection";
+import { TopEmotion } from "./TopEmotion";
+
 const setMockMoments = async () => {
   for (const moment of mockMoments) {
     await AsyncStorage.setItem(moment.date, JSON.stringify(moment));
@@ -23,8 +31,8 @@ export const mockMoments: Moment[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJxo2NFiYcR35GzCk5T3nxA7rGlSsXvIfJwg&s",
     description: "햇살 좋은 날 산책을 했어요.",
     music: {
-      title: "Happy Day",
-      singer: "Sunshine Band",
+      title: "Drowning",
+      singer: "Drowning",
     },
   },
   {
@@ -94,14 +102,6 @@ export const mockMoments: Moment[] = [
     },
   },
 ];
-
-import { getMoment } from "@/objects/moment/api/getMoment";
-import { Moment } from "@/objects/moment/model";
-import { CustomCalendar } from "@/widgets/calendar/ui";
-import { format } from "date-fns";
-import { Link, router, useFocusEffect } from "expo-router";
-import { PlaylistSection } from "./PlaylistSection";
-import { TopEmotion } from "./TopEmotion";
 
 const clearAllStorage = async () => {
   try {
