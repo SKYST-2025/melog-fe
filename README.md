@@ -110,6 +110,28 @@ Melog는 **“기록을 잘 쓰는 것”** 보다 **“감정을 잘 느끼는 
 
 ## 👥 Team Members
 
-| ![member1](https://github.com/user-attachments/assets/591c09fd-56d9-4d03-9584-a30c43ed3526) | ![member2](https://github.com/user-attachments/assets/a134f173-0189-4ecc-8200-450d6492f161) | ![member3](https://github.com/user-attachments/assets/949bf796-1ddf-4357-bf1b-6537807c3060) | ![member4](https://github.com/user-attachments/assets/d365185d-65b0-4c1e-acd1-84feee4a7f69) | ![member5](https://github.com/user-attachments/assets/a12b165b-56d3-4264-9b8b-60185e554dcd) |
-|:--------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------:|
-| **도영**<br>팀장, AI 모델 개발 | **수빈**<br>프론트엔드, 백엔드 | **민재**<br>프론트엔드 | **민주**<br>브랜드 디자인, UI·UX | **젤린**<br>캐릭터 및 브랜드 디자인 |
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/591c09fd-56d9-4d03-9584-a30c43ed3526" width="100"/><br>
+      <b>도영</b><br>팀장, AI 모델 개발
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/a134f173-0189-4ecc-8200-450d6492f161" width="100"/><br>
+      <b>수빈</b><br>프론트엔드, 백엔드
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/949bf796-1ddf-4357-bf1b-6537807c3060" width="100"/><br>
+      <b>민재</b><br>프론트엔드
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/d365185d-65b0-4c1e-acd1-84feee4a7f69" width="100"/><br>
+      <b>민주</b><br>브랜드 디자인, UI·UX
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/56e7acf3-fe76-4144-95bb-f56f6bee68cd" width="100"/><br>
+      <b>젤린</b><br>캐릭터 및 브랜드 디자인
+    </td>
+  </tr>
+</table>
+
