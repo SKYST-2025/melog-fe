@@ -126,11 +126,11 @@ Melog는 **“기록을 잘 쓰는 것”** 보다 **“감정을 잘 느끼는 
     </td>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/d365185d-65b0-4c1e-acd1-84feee4a7f69" width="100"/><br>
-      <b>민주</b><br>브랜드 디자인, UI·UX
+      <b>민주</b><br> 캐릭터 및 브랜드 디자인, UI·UX
     </td>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/56e7acf3-fe76-4144-95bb-f56f6bee68cd" width="100"/><br>
-      <b>젤린</b><br>캐릭터 및 브랜드 디자인
+      <b>젤린</b><br> 캐릭터 및 브랜드 디자인, UI·UX
     </td>
   </tr>
 </table>
